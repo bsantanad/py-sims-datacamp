@@ -7,23 +7,26 @@ grand_prize = 10000
 
 chance_of_winning = 1 / num_tickets
 
+size = 2000 # controls the number of simulations
+
 # there are two outcomes, either we lose the lottery ticket cost, or we
 # gain the grand prize minus the lottery ticket
-gains = [
+payoffs = [
     -lottery_ticket_cost, grand_prize - lottery_ticket_cost
 ]
 
 # there are also to probabilities, the one of loosing is:
 # 1 minus the chance of winning, the other is
-# the chance of winning 
-probability = [1 - chance_of_winning, chance_of_winning]
+# the chance of winning
+probs = [1 - chance_of_winning, chance_of_winning]
 
-outcome = np.random.choice(
-    a = gains,
-    size = 1,
-    p = probability,
+outcomes = np.random.choice(
+    a = payoffs,
+    size = size,
+    p = probs,
     replace = True,
 )
 
-# as you can imagine this is almost always a lose, not a gain
-print(outcome)
+# Mean of outcomes.
+answer = np.mean(outcomes)
+print("Average payoff from {} simulations = {}".format(size, answer))
